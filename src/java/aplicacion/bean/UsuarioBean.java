@@ -17,15 +17,20 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class LoginBean {
+public class UsuarioBean {
     private IUsuarioDAO usuarioDAO;
 
     /**
      * Creates a new instance of LoginBean
      */
-    public LoginBean() {
+    public UsuarioBean() {
         usuarioDAO = new UsuarioDAOImp();
     }
+   public Usuario validarUsuario(String nombreUsuario,String password){
+       
+       return usuarioDAO.validarUsuario(nombreUsuario, password);
+   }
+           
     /**
      * @return the usuarioDAO
      */
