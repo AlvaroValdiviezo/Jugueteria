@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aplicacion.bean;
+package aplicacion.form.bean;
 
+import aplicacion.bean.UsuarioBean;
 import aplicacion.modelo.dominio.Usuario;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
