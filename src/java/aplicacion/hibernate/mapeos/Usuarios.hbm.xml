@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03/06/2019 23:37:11 by Hibernate Tools 4.3.1 -->
+<!-- Generated 10-jun-2019 2:25:42 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
   <class catalog="proyecto" name="aplicacion.modelo.dominio.Usuario" optimistic-lock="version" table="usuarios">
     <id name="codigo" type="int">
       <column name="codigo"/>
       <generator class="assigned"/>
     </id>
+    <many-to-one class="aplicacion.modelo.dominio.Cliente" fetch="join" cascade="all" name="clientes">
+      <column name="clientes_dni" not-null="true"/>
+    </many-to-one>
     <property name="nombreUsuario" type="string">
       <column length="45" name="nombreUsuario"/>
     </property>
@@ -25,5 +28,11 @@
     <property name="estado" type="java.lang.Boolean">
       <column name="estado"/>
     </property>
+    <set fetch="select" inverse="true" lazy="true" name="facturas" table="factura">
+      <key>
+        <column name="usuarios_codigo" not-null="true"/>
+      </key>
+      <one-to-many class="aplicacion.modelo.dominio.Factura"/>
+    </set>
   </class>
 </hibernate-mapping>

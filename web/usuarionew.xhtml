@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registro</title>
+    </h:head>
+    <h:body>
+        <p:panel>
+            <h:form id="alta">
+                <p:growl  showDetail="false" sticky="false"/>
+                <p:panelGrid columns="2">
+                <p:outputLabel value="Nombre de usuario" />
+                <p:inputText value="#{usuarioFormBean.unUsuario.nombres}" required="true"/>
+                <p:outputLabel value="Contraseña"/>
+                <p:password value="#{usuarioFormBean.unUsuario.password}" required="true"/>
+                <p:outputLabel value="Apellido"/>
+                <p:inputText value="#{usuarioFormBean.unUsuario.apellidos}"/>
+                <p:outputLabel value="Nombres"/>
+                <p:inputText value="#{usuarioFormBean.unUsuario.nombres}"/>
+                <p:outputLabel value="e-mail" />
+                <p:inputText value="#{usuarioFormBean.unCliente.mail}" required="true"/>
+                <p:outputLabel value="DNI" />
+                <p:inputNumber value="#{usuarioFormBean.unCliente.dni}" required="true"/>
+                <p:outputLabel value="telefono" />
+                <p:inputText value="#{usuarioFormBean.unCliente.telefono}"/>
+                <p:outputLabel value="pais" />
+                <p:inputText value="#{usuarioFormBean.unCliente.pais}"/>
+                <p:outputLabel value="provincia" />
+                <p:inputText value="#{usuarioFormBean.unCliente.provincia}"/>
+                <p:outputLabel value="domicilio" />
+                <p:inputText value="#{usuarioFormBean.unCliente.domicilio}"/>
+                <p:outputLabel value="fecha" />
+                <p:calendar value="#{usuarioFormBean.unCliente.fechaNac}"/>
+                </p:panelGrid>
+            </h:form>
+            <h:form>
+                <p:commandButton value="Crear usuario" update="alta" 
+                                 actionListener="#{usuarioFormBean.agregarUsuario()}" />
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+

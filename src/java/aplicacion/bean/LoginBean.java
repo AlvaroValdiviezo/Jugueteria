@@ -7,36 +7,29 @@ package aplicacion.bean;
 
 import aplicacion.dao.IUsuarioDAO;
 import aplicacion.dao.mysql.UsuarioDAOImp;
-import aplicacion.modelo.dominio.Cliente;
 import aplicacion.modelo.dominio.Usuario;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author alvar
+ * @author Flia. Vilca
  */
 @ManagedBean
-@ViewScoped
-public class UsuarioBean {
-    private IUsuarioDAO usuarioDAO;
-
+@RequestScoped
+public class LoginBean {
+ private IUsuarioDAO usuarioDAO;
     /**
      * Creates a new instance of LoginBean
      */
-    public UsuarioBean() {
-        usuarioDAO = new UsuarioDAOImp();
+    public LoginBean() {
+        usuarioDAO=new UsuarioDAOImp();
     }
-   public void agregarUsuario(Usuario unUsuario){
-       usuarioDAO.agregar(unUsuario);
-   }
-   public void modificarUsuario(Usuario unUsuario){
-       usuarioDAO.modificar(unUsuario);
-   }
-   public void eliminarUsuario(Usuario unUsuario){
-       usuarioDAO.eliminar(unUsuario);
-   }
-           
+    
+    public Usuario validarUsuario(String nombre, String password){
+     return getUsuarioDAO().validarUsuario(nombre, password);
+    }
+
     /**
      * @return the usuarioDAO
      */
