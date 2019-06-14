@@ -1,0 +1,367 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">
+                <h:form>  
+                    <p:growl id="messages"/>
+
+                    <p:menubar>
+                        <p:submenu label="Categoria" icon="ui-icon-bullet">
+                            <p:submenu label="Niños" icon="ui-icon-radio-off ">
+                                <p:menuitem value="Cunas" url="#" />
+                                <p:menuitem value="Cochecitos" url="#" />
+                                <p:menuitem value="Juguetes" url="#" />
+                                <p:menuitem value="Other" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Niñas" icon="ui-icon-radio-off ">
+                                <p:menuitem value="Muñecas" url="#" />
+                                <p:menuitem value="Juegos de Cocinas" url="#" />
+                                <p:menuitem value="Bebotes" url="#" />
+                                <p:menuitem value="Other" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Adolecentes" icon="ui-icon-radio-off ">
+                                <p:menuitem value="Armas" url="#" />
+                                <p:menuitem value="Juegos de Mesa" url="#" />
+                                <p:menuitem value="Consolas y Juegos" url="#" />
+                                <p:menuitem value="Computadoras y Notebooks" url="#" />
+                                <p:menuitem value="Other" url="#" />
+                            </p:submenu>
+                        </p:submenu>
+
+                        <p:submenu label="Personajes" icon="ui-icon-bullet" >
+                            <p:submenu label="Niños" icon="ui-icon-radio-off ">
+                                <p:menuitem value="Ben 10" url="#" />
+                                <p:menuitem value="Transformers" url="#" />
+                                <p:menuitem value="the simpsons" url="#" />
+                                <p:menuitem value="Other" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Niñas" icon="ui-icon-radio-off ">
+                                <p:menuitem value="Hello Kitty" url="#" />
+                                <p:menuitem value="Barbies" url="#" />
+                                <p:menuitem value="My little pony" url="#" />
+                                <p:menuitem value="Other" url="#" />
+                            </p:submenu>
+                        </p:submenu>
+
+                        <p:submenu label="Marcas" icon="ui-icon-bullet">
+                            <p:menuitem value="Nerd" url="#" />
+                            <p:menuitem value="San Remo" url="#" />
+                            <p:menuitem value="Hasbro Gaming" url="#" />
+                            <p:menuitem value="Lego" url="#" />
+                        </p:submenu>
+
+                        <p:submenu icon="ui-icon-person ">
+                            <p:menuitem value="Ingresar" url="#" />
+                            <p:menuitem value="Crear Cuenta" url="#" />
+                        </p:submenu>
+
+                        <f:facet name="options">
+                            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search"/>
+                            <p:commandButton type="button" value="Buscar" icon="ui-icon-search" />
+                        </f:facet>
+
+                    </p:menubar>
+                </h:form>
+            </ui:insert>
+        </div>
+
+        <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->  
+
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+                    Presentacion de las ultimas Novedades/Promos
+                    <style type="text/css">
+                        .value {
+                            font-weight: bold;
+                        }
+
+                        .ui-carousel {
+                            margin-bottom: 20px;
+                        }
+                    </style>
+
+
+                    <h:form id="form">
+                        
+                        <p:carousel value="#{carouselView.cars}" headerText="Custom" var="car" itemStyle="height:200px;text-align:center" numVisible="1" easing="easeOutBounce" style="width:250px" circular="true">
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="label,value">
+                                <f:facet name="header">
+                                    <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> 
+                                </f:facet>
+
+                                <h:outputText value="Id:" />
+                                <h:outputText value="#{car.id}" />
+
+                                <h:outputText value="Year" />
+                                <h:outputText value="#{car.year}" />
+
+                                <h:outputText value="Color:" />
+                                <h:outputText value="#{car.color}" style="color:#{car.color}"/>
+
+                                <h:outputText value="Price" />
+                                <h:outputText value="$#{car.price}" />
+
+                                <f:facet name="footer">
+                                    <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search">
+                                        <f:setPropertyActionListener value="#{car}" target="#{carouselView.selectedCar}" />
+                                    </p:commandButton>
+                                </f:facet>
+                            </h:panelGrid>
+                        </p:carousel> 
+
+                        <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="carDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty carouselView.selectedCar}" columnClasses="label,value">
+                                    <f:facet name="header">
+                                        <p:graphicImage name="demo/images/car/#{carouselView.selectedCar.brand}-big.gif"/> 
+                                    </f:facet>
+
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{carouselView.selectedCar.id}" />
+
+                                    <h:outputText value="Year" />
+                                    <h:outputText value="#{carouselView.selectedCar.year}" />
+
+                                    <h:outputText value="Color:" />
+                                    <h:outputText value="#{carouselView.selectedCar.color}" style="color:#{carouselView.selectedCar.color}"/>
+
+                                    <h:outputText value="Price" />
+                                    <h:outputText value="$#{carouselView.selectedCar.price}" />
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </ui:insert>
+            </div>
+
+            <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+            <div id="content" class="left_content">
+                <ui:insert name="content">
+                    Juguetes en general
+                    <style type="text/css">
+                        .logo {
+                            width: 5%
+                        }
+
+                        .detail {
+                            width: 95%;
+                            padding-left: 25px;
+                        }
+
+                        .detail td {
+                            font-size: 24px;
+                        }
+                    </style>
+
+                    <h:form id="form">
+                        <p:repeat value="#{dataListView.cars1}" var="car">
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()">
+                                    <f:setPropertyActionListener value="#{car}" target="#{dataListView.selectedCar}" />
+                                    <p:graphicImage name="demo/images/car/#{car.brand}-big.gif" /> 
+                                </p:commandLink>
+
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Id:" />
+                                        <h:outputText value="#{car.id}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Year:" />
+                                        <h:outputText value="#{car.year}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Color:" />
+                                        <h:outputText value="#{car.color}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                            <hr />
+                        </p:repeat>
+
+                        <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+                            <p:outputPanel id="carDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty dataListView.selectedCar}" columnClasses="label,value">
+                                    <f:facet name="header">
+                                        <p:graphicImage name="demo/images/car/#{dataListView.selectedCar.brand}-big.gif"/> 
+                                    </f:facet>
+
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{dataListView.selectedCar.id}" />
+
+                                    <h:outputText value="Year" />
+                                    <h:outputText value="#{dataListView.selectedCar.year}" />
+
+                                    <h:outputText value="Color:" />
+                                    <h:outputText value="#{dataListView.selectedCar.color}" style="color:#{dataListView.selectedCar.color}"/>
+
+                                    <h:outputText value="Price" />
+                                    <h:outputText value="\$#{dataListView.selectedCar.price}" />
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </ui:insert>
+            </div>
+        </div>
+
+        <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+        <div id="bottom">
+            <ui:insert name="bottom">
+                soporte o notificacion de errores.....
+                <style type="text/css">
+                    .label {
+                        width:20%;
+                        padding:4px;
+                    }
+
+                    .value {
+                        width:80%;
+                        padding:4px;
+                    }
+
+                    .grid {
+                        width:100%;
+                    }
+
+                    .error {
+                        color: red;
+                    }
+
+                    .outputLabel {
+                        font-weight: bold;
+                    }
+
+                    .grid {
+                        width:33%;
+                        padding:4px;
+                    }
+                </style>
+
+                <h:form>
+
+                    <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                    <p:wizard flowListener="#{userWizard.onFlowProcess}">
+                        <p:tab id="personal" title="Personal">
+                            <p:panel header="Personal Details">
+                                <p:messages />
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Firstname: *" />
+                                    <p:inputText value="#{userWizard.user.firstname}" required="true" label="Firstname"/>
+
+                                    <h:outputText value="Lastname: *" />
+                                    <p:inputText value="#{userWizard.user.lastname}" required="true" label="Lastname"/>
+
+                                    <h:outputText value="Age: " />
+                                    <p:inputText value="#{userWizard.user.age}" />
+
+                                    <h:outputText value="Skip to last: " />
+                                    <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="address" title="Address">
+                            <p:panel header="Address Details">
+                                <p:messages />
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Street: " />
+                                    <p:inputText value="#{userWizard.user.street}" />
+
+                                    <h:outputText value="Postal Code: " />
+                                    <p:inputText value="#{userWizard.user.postalCode}" />
+
+                                    <h:outputText value="City: " />
+                                    <p:inputText value="#{userWizard.user.city}" />
+
+                                    <h:outputText value="Skip to last: " />
+                                    <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="contact" title="Contact">
+                            <p:panel header="Contact Information">
+                                <p:messages />
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Email: *" />
+                                    <p:inputText value="#{userWizard.user.email}" required="true" label="Email"/>
+
+                                    <h:outputText value="Phone: " />
+                                    <p:inputText value="#{userWizard.user.phone}"/>
+
+                                    <h:outputText value="Additional Info: " />
+                                    <p:inputText value="#{userWizard.user.info}"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="confirm" title="Confirmation">
+                            <p:panel header="Confirmation">
+                                <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="Firstname: " />
+                                        <h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="Lastname: " />
+                                        <h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="Age: " />
+                                        <h:outputText value="#{userWizard.user.age}" styleClass="outputLabel"/>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="Street: " />
+                                        <h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="Postal: " />
+                                        <h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="City: " />
+                                        <h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="Email: " />
+                                        <h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="Phone " />
+                                        <h:outputText value="#{userWizard.user.phone}" styleClass="outputLabel"/>
+
+                                        <h:outputText value="Info: " />
+                                        <h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>
+
+                                        <h:outputText />
+                                        <h:outputText />
+                                    </h:panelGrid>
+                                </h:panelGrid>
+
+                                <p:commandButton value="Submit" action="#{userWizard.save}" update="growl" process="@this"/>
+                            </p:panel>
+                        </p:tab>
+                    </p:wizard>
+
+                </h:form>
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>
