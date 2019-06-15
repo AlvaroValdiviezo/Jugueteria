@@ -7,14 +7,15 @@ package aplicacion.dao;
 
 import aplicacion.modelo.dominio.Usuario;
 
+
 /**
  *
- * @author Flia. Vilca
+ * @author alvar
  */
 public interface IUsuarioDAO {
     Usuario validarUsuario(String nombreUsuario, String password);
     Usuario obtenerUsuario(String nombreUsuario);
-    void agregar(Usuario unUsuario);
-    void eliminar(Usuario unUsuario);
-    void modificar(Usuario unUsuario);
+    void modificarUsuario(Usuario unUsuario);
+    void crearUsuario(Usuario unUsuario);
+    void eliminarUsuario(Usuario unUsuario);
 }

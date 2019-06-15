@@ -7,13 +7,13 @@ package aplicacion.dao;
 
 import aplicacion.modelo.dominio.Cliente;
 
+
 /**
  *
- * @author Flia. Vilca
+ * @author alvar
  */
 public interface IClienteDAO {
-    Cliente obtenerCliente(int dni);
-    void agregar(Cliente unCliente);
-    void eliminar(Cliente unCliente);
-    void modificar(Cliente unCliente); 
+    void agregarCliente(Cliente unCliente);
+    void modificarCliente(Cliente unCliente);
+    void eliminarCliente(Cliente unCliente);
 }

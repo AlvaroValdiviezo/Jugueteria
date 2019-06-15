@@ -8,55 +8,39 @@ package aplicacion.dao.mysql;
 import aplicacion.dao.IClienteDAO;
 import aplicacion.hibernate.configuracion.NewHibernateUtil;
 import aplicacion.modelo.dominio.Cliente;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 /**
  *
- * @author Flia. Vilca
+ * @author alvar
  */
-public class ClienteDAOImp implements IClienteDAO{
+public class ClienteDAOImp implements IClienteDAO {
 
     @Override
-    public void agregar(Cliente unCliente) {
-        Session session=NewHibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(unCliente);
-        session.getTransaction().commit();
-        session.close();
+    public void agregarCliente(Cliente unCliente) {
+       Session session= NewHibernateUtil.getSessionFactory().openSession();
+       session.beginTransaction();
+       session.save(unCliente);
+       session.getTransaction().commit();
+       session.close();
     }
 
     @Override
-    public void eliminar(Cliente unCliente) {
-      Session session=NewHibernateUtil.getSessionFactory().openSession();
-      session.beginTransaction();
-      session.save(unCliente);
-      session.getTransaction().commit();
-      session.close();  
+    public void modificarCliente(Cliente unCliente) {
+       Session session= NewHibernateUtil.getSessionFactory().openSession();
+       session.beginTransaction();
+       session.update(unCliente);
+       session.getTransaction().commit();
+       session.close();
     }
 
     @Override
-    public void modificar(Cliente unCliente) {
-      Session session=NewHibernateUtil.getSessionFactory().openSession();
-      session.beginTransaction();
-      session.save(unCliente);
-      session.getTransaction().commit();
-      session.close();  
-    }
-
-    @Override
-    public Cliente obtenerCliente(int dni) {
-        Cliente u=null;
-        Session session=NewHibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-         Criteria criteria=session.createCriteria(Cliente.class);
-        criteria.add(Restrictions.like("dni", dni));
-        if(!criteria.list().isEmpty())
-            u=(Cliente)criteria.list().get(0);
-        session.getTransaction().commit();
-        session.close();
-        return u;
+    public void eliminarCliente(Cliente unCliente) {
+       Session session= NewHibernateUtil.getSessionFactory().openSession();
+       session.beginTransaction();
+       session.delete(unCliente);
+       session.getTransaction().commit();
+       session.close();
     }
     
 }

@@ -27,7 +27,13 @@ public class ClienteBean {
     }
     
     public void agregarCliente(Cliente unCliente){
-    clienteDAO.agregar(unCliente);
+    clienteDAO.agregarCliente(unCliente);
+    }
+    public void modificarCliente(Cliente unCliente){
+        clienteDAO.modificarCliente(unCliente);
+    }
+    public void eliminarCliente(Cliente unCliente){
+        clienteDAO.eliminarCliente(unCliente);
     }
 
     /**

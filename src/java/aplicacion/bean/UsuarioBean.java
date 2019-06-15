@@ -10,14 +10,14 @@ import aplicacion.dao.mysql.UsuarioDAOImp;
 import aplicacion.modelo.dominio.Cliente;
 import aplicacion.modelo.dominio.Usuario;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
  * @author alvar
  */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class UsuarioBean {
     private IUsuarioDAO usuarioDAO;
 
@@ -28,13 +28,13 @@ public class UsuarioBean {
         usuarioDAO = new UsuarioDAOImp();
     }
    public void agregarUsuario(Usuario unUsuario){
-       usuarioDAO.agregar(unUsuario);
+       usuarioDAO.crearUsuario(unUsuario);
    }
    public void modificarUsuario(Usuario unUsuario){
-       usuarioDAO.modificar(unUsuario);
+       usuarioDAO.modificarUsuario(unUsuario);
    }
    public void eliminarUsuario(Usuario unUsuario){
-       usuarioDAO.eliminar(unUsuario);
+       usuarioDAO.eliminarUsuario(unUsuario);
    }
            
     /**
