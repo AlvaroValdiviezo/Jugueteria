@@ -16,6 +16,7 @@ public class Producto  implements java.io.Serializable {
      private String descripcion;
      private Double precio;
      private Integer stock;
+     private byte[] foto;
      private Set detalles = new HashSet(0);
 
     public Producto() {
@@ -26,15 +27,16 @@ public class Producto  implements java.io.Serializable {
         this.codProducto = codProducto;
         this.categorias = categorias;
     }
-    public Producto(int codProducto, Categoria categorias, String descripcion, Double precio, Integer stock, Set detalles) {
+    public Producto(int codProducto, Categoria categorias, String descripcion, Double precio, Integer stock,byte[] foto, Set detalles) {
        this.codProducto = codProducto;
        this.categorias = categorias;
        this.descripcion = descripcion;
        this.precio = precio;
        this.stock = stock;
+       this.foto=foto;
        this.detalles = detalles;
     }
-   
+
     public int getCodProducto() {
         return this.codProducto;
     }
@@ -76,6 +78,20 @@ public class Producto  implements java.io.Serializable {
     
     public void setDetalles(Set detalles) {
         this.detalles = detalles;
+    }
+
+    /**
+     * @return the foto
+     */
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    /**
+     * @param foto the foto to set
+     */
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
 

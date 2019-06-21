@@ -19,6 +19,9 @@
     <property name="stock" type="java.lang.Integer">
       <column name="stock"/>
     </property>
+    <property name="foto" type="byte[]">
+        <column name="foto"/>
+    </property>
     <set fetch="select" inverse="true" lazy="true" name="detalles" table="detalle">
       <key>
         <column name="productos_codProducto" not-null="true"/>
