@@ -29,11 +29,12 @@
                     <p:inputText id="prov" value="#{usuarioFormBean.unCliente.provincia}" />
                     <p:outputLabel for="dir" value="Domicilio"/>
                     <p:inputText id="dir" value="#{usuarioFormBean.unCliente.domicilio}" />
-                    <p:outputLabel for="email" value="email"/>
+                    <p:outputLabel for="email" value="E-mail"/>
                     <p:inputText id="email" value="#{usuarioFormBean.unCliente.mail}"/>
-                    <p:outputLabel for="fn" value="fecha de nacimiento" />
-                    <p:calendar id="fn" value="#{usuarioFormBean.unCliente.fechaNac}" />
-                    <p:commandButton id="res" value="REGISTRAR" action="#{usuarioFormBean.crearUsuario()}" update="frm1"/>
+                    <p:outputLabel for="fn" value="Fecha de nacimiento" />
+                    <p:calendar id="fn" value="#{usuarioFormBean.unCliente.fechaNac}"/>
+                    <br></br>
+                    <p:commandButton id="res" value="Registrarse" action="#{usuarioFormBean.crearUsuario()}" update="frm1" style="margin: 20px"/>
                 </h:panelGrid>
             </h:form>
         </p:panel>
