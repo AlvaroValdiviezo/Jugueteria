@@ -5,15 +5,23 @@
  */
 package aplicacion.form.bean;
 
+import aplicacion.bean.CategoriaBean;
 import aplicacion.bean.ProductoBean;
 import aplicacion.modelo.dominio.Categoria;
 import aplicacion.modelo.dominio.Producto;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -25,9 +33,12 @@ import org.primefaces.model.UploadedFile;
 public class ProductoFormBean implements Serializable{
     @ManagedProperty (value = "#{productoBean}")
     private ProductoBean productoBean;
+    @ManagedProperty (value = "#{categoriaBean}")
+    private CategoriaBean categoriaBean;
     private int codProducto;
     private Producto unProducto;
-    private Categoria unaCategoria;
+    private List<Producto> productos;
+    private List<Categoria> categorias;
     private transient UploadedFile archivo=null;
 
     /**
@@ -36,19 +47,22 @@ public class ProductoFormBean implements Serializable{
     public ProductoFormBean() {
         productoBean=new ProductoBean();
         unProducto=new Producto();
-        unaCategoria=new Categoria();
+    }
+    @PostConstruct
+    public void init(){
+        obtenerLista();
+        listaCategoria();
     }
     public void agregarProducto(){
         if(getArchivo() != null){
             byte[] contents = getArchivo().getContents();
-            unProducto.setFoto(contents);
+            getUnProducto().setFoto(contents);
         }
         else{
-            unProducto.setFoto(null);
+            getUnProducto().setFoto(null);
         }
-        getUnProducto().setCategorias(getUnaCategoria());
            try {
-               productoBean.crearProducto(getUnProducto());
+               getProductoBean().crearProducto(getUnProducto());
                FacesMessage facesMesagge=new FacesMessage(FacesMessage.SEVERITY_INFO,"Producto agreagado correctamente","Producto");
                FacesContext.getCurrentInstance().addMessage(null, facesMesagge);
            }
@@ -56,10 +70,11 @@ public class ProductoFormBean implements Serializable{
                FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_WARN,"Error Grave","no se pudo agregar Producto");
                        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
            }
+           setUnProducto(new Producto());
     }
     public void eliminarProducto(){
          try {
-               productoBean.eliminarProducto(getUnProducto());
+               getProductoBean().eliminarProducto(getUnProducto());
                FacesMessage facesMesagge=new FacesMessage(FacesMessage.SEVERITY_INFO,"Producto eliminado correctamente","Producto");
                FacesContext.getCurrentInstance().addMessage(null, facesMesagge);
            }
@@ -70,7 +85,7 @@ public class ProductoFormBean implements Serializable{
     }
     public void modificarProducto(){
          try {
-               productoBean.modificarProducto(getUnProducto());
+               getProductoBean().modificarProducto(getUnProducto());
                FacesMessage facesMesagge=new FacesMessage(FacesMessage.SEVERITY_INFO,"Producto modificado correctamente","Producto");
                FacesContext.getCurrentInstance().addMessage(null, facesMesagge);
            }
@@ -78,6 +93,28 @@ public class ProductoFormBean implements Serializable{
                FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_WARN,"Error Grave","no se pudo modificar Producto");
                        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
            }
+    }
+    public void obtenerLista(){
+        setProductos(productoBean.obtenerLista());
+    }
+    public void listaCategoria(){
+        setCategorias(categoriaBean.obtenerLista());
+    }
+    public StreamedContent getFotoproducto() throws IOException{
+     FacesContext context=FacesContext.getCurrentInstance();
+     if(context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE){
+      return new DefaultStreamedContent();
+     }
+     else{
+        String codigo=context.getExternalContext().getRequestParameterMap().get("codProducto");
+        Producto producto=getProductoBean().obtenerProducto(Integer.parseInt(codigo));
+        if (producto.getFoto()==null){
+         return null;
+        }
+        else{
+         return new DefaultStreamedContent(new ByteArrayInputStream(producto.getFoto()));        
+        }
+      }
     }
 
     /**
@@ -123,20 +160,6 @@ public class ProductoFormBean implements Serializable{
     }
 
     /**
-     * @return the unaCategoria
-     */
-    public Categoria getUnaCategoria() {
-        return unaCategoria;
-    }
-
-    /**
-     * @param unaCategoria the unaCategoria to set
-     */
-    public void setUnaCategoria(Categoria unaCategoria) {
-        this.unaCategoria = unaCategoria;
-    }
-
-    /**
      * @return the archivo
      */
     public UploadedFile getArchivo() {
@@ -148,6 +171,48 @@ public class ProductoFormBean implements Serializable{
      */
     public void setArchivo(UploadedFile archivo) {
         this.archivo = archivo;
+    }
+
+    /**
+     * @return the productos
+     */
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    /**
+     * @param productos the productos to set
+     */
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
+    /**
+     * @return the categorias
+     */
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    /**
+     * @param categorias the categorias to set
+     */
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
+    /**
+     * @return the categoriaBean
+     */
+    public CategoriaBean getCategoriaBean() {
+        return categoriaBean;
+    }
+
+    /**
+     * @param categoriaBean the categoriaBean to set
+     */
+    public void setCategoriaBean(CategoriaBean categoriaBean) {
+        this.categoriaBean = categoriaBean;
     }
     
 }

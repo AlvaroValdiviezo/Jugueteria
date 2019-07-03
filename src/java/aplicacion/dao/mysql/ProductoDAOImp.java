@@ -8,6 +8,9 @@ package aplicacion.dao.mysql;
 import aplicacion.dao.IProductoDAO;
 import aplicacion.hibernate.configuracion.NewHibernateUtil;
 import aplicacion.modelo.dominio.Producto;
+import aplicacion.modelo.dominio.Usuario;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -21,7 +24,7 @@ public class ProductoDAOImp implements IProductoDAO{
     @Override
     public Producto obtenerProducto(int codProducto) {
         Producto u=null;
-        Session session=NewHibernateUtil.getSessionFactory().getCurrentSession();
+        Session session=NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
          Criteria criteria=session.createCriteria(Producto.class);
         criteria.add(Restrictions.like("codProducto", codProducto));
@@ -57,6 +60,20 @@ public class ProductoDAOImp implements IProductoDAO{
         session.update(unProducto);
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public List<Producto> obtenerLista() {
+    List<Producto> listado = new ArrayList();
+                Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Usuario.class);
+        criteria.add(Restrictions.like("estado", true));
+         if(!criteria.list().isEmpty())
+            listado=criteria.list();
+        session.getTransaction().commit();
+        session.close();
+        return listado;
     }
     
 }

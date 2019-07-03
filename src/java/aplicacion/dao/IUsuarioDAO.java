@@ -6,6 +6,7 @@
 package aplicacion.dao;
 
 import aplicacion.modelo.dominio.Usuario;
+import java.util.List;
 
 
 /**
@@ -18,4 +19,5 @@ public interface IUsuarioDAO {
     void modificarUsuario(Usuario unUsuario);
     void crearUsuario(Usuario unUsuario);
     void eliminarUsuario(Usuario unUsuario);
+    List<Usuario> listaUsuario();
 }

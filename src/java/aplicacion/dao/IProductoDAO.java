@@ -6,6 +6,7 @@
 package aplicacion.dao;
 
 import aplicacion.modelo.dominio.Producto;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,5 @@ public interface IProductoDAO {
     void agregar(Producto unProducto);
     void eliminar(Producto unProducto);
     void modificar(Producto unProducto); 
+    List<Producto> obtenerLista();
 }

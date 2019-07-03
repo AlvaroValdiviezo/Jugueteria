@@ -8,6 +8,7 @@ package aplicacion.bean;
 import aplicacion.dao.IProductoDAO;
 import aplicacion.dao.mysql.ProductoDAOImp;
 import aplicacion.modelo.dominio.Producto;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -38,7 +39,12 @@ public class ProductoBean{
         getProductoDao().modificar(unProducto);
     }
     public Producto obtenerProducto(int codProducto){
-    return getProductoDao().obtenerProducto(codProducto);}
+    return getProductoDao().obtenerProducto(codProducto);
+    }
+    
+    public List<Producto> obtenerLista(){
+     return productoDao.obtenerLista();
+    }
 
     /**
      * @return the productoDao

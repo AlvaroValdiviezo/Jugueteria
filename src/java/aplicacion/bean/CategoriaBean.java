@@ -8,6 +8,7 @@ package aplicacion.bean;
 import aplicacion.dao.ICategoriaDAO;
 import aplicacion.dao.mysql.CategoriaDAOImp;
 import aplicacion.modelo.dominio.Categoria;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -39,6 +40,9 @@ public class CategoriaBean {
     }
     public Categoria obtenerCategoria(String nombreCat){
         return categoriaDao.obtenerCategoria(nombreCat);
+    }
+    public List<Categoria> obtenerLista(){
+        return categoriaDao.obtenerLista();
     }
 
     /**

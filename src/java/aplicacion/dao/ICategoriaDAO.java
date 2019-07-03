@@ -6,6 +6,7 @@
 package aplicacion.dao;
 
 import aplicacion.modelo.dominio.Categoria;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,5 @@ public interface ICategoriaDAO {
     void agregar(Categoria unaCategoria);
     void eliminar(Categoria unaCategoria);
     void modificar(Categoria unaCategoria);
+    List<Categoria> obtenerLista();
 }

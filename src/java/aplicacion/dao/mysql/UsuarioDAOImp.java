@@ -8,6 +8,8 @@ package aplicacion.dao.mysql;
 import aplicacion.dao.IUsuarioDAO;
 import aplicacion.hibernate.configuracion.NewHibernateUtil;
 import aplicacion.modelo.dominio.Usuario;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -73,5 +75,19 @@ public class UsuarioDAOImp implements IUsuarioDAO {
        session.delete(unUsuario);
        session.getTransaction().commit();
        session.close();
+    }
+
+    @Override
+    public List<Usuario> listaUsuario() {
+        List<Usuario> listado = new ArrayList();
+                Session session = NewHibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Usuario.class);
+        criteria.add(Restrictions.like("estado", true));
+         if(!criteria.list().isEmpty())
+            listado=criteria.list();
+        session.getTransaction().commit();
+        session.close();
+        return listado;
     }
 }
